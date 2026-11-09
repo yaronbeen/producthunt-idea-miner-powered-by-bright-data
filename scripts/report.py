@@ -11,7 +11,7 @@ from pathlib import Path
 CUES = {
     "feature_request": ("please add", "wish", "would like", "i'd like", "missing", "should have", "could use", "need support for"),
     "complaint": ("broken", "unreliable", "confusing", "slow", "bug", "hate", "doesn't work", "frustrating"),
-    "pricing_objection": ("price", "pricing", "expensive", "too high", "cost"),
+    "pricing_objection": ("expensive", "too high", "overpriced", "costly", "pricey", "not worth the price", "not affordable"),
     "switching_mention": ("switched", "switching", "migrated", "moved from", "alternative to"),
 }
 PUBLIC_FIELDS = {"product", "product_slug", "review_id", "position", "text", "source_url", "captured_at"}

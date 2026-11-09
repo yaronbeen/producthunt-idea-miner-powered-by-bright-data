@@ -13,6 +13,6 @@ Two short excerpts were sanitized into `tests/fixtures/sanitized_live.json`. Nam
 - A topic page timed out during early validation.
 - The ChatGPT reviews URL timed out on one later attempt and succeeded on the bounded retry.
 - The capture is not category enumeration and does not promise access to every review.
-- Visible reviews may have no stable per-review ID. The skill supports position fallback and discloses its weakness.
+- Visible reviews may have no stable per-review ID. The skill uses a normalized-text hash fallback: edits then look like new reviews, and vanished rows are not labeled removed.
 
 Review Product Hunt's current terms before collection. The skill stops on access challenges and never describes MCP as a way around them.
