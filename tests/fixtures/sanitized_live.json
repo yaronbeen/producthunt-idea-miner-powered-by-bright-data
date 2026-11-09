@@ -1,0 +1,23 @@
+{
+  "capture_date": "2026-11-09",
+  "source": "Product Hunt public ChatGPT reviews page",
+  "sanitization": "Reviewer names, avatars, handles, ratings, and unrelated page content removed. Short excerpts retained as allegations, not facts.",
+  "rows": [
+    {
+      "product": "ChatGPT",
+      "product_slug": "chatgpt",
+      "text": "I’d like more consistent context across longer conversations and clearer acknowledgment when an answer is uncertain.",
+      "expected_tags": ["feature_request"],
+      "source_url": "https://www.producthunt.com/products/chatgpt/reviews",
+      "captured_at": "2026-11-09"
+    },
+    {
+      "product": "ChatGPT",
+      "product_slug": "chatgpt",
+      "text": "The sync from the desktop app to mobile is slow and needs improvement.",
+      "expected_tags": ["complaint"],
+      "source_url": "https://www.producthunt.com/products/chatgpt/reviews",
+      "captured_at": "2026-11-09"
+    }
+  ]
+}

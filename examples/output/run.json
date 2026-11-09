@@ -1,0 +1,81 @@
+{
+  "rows": [
+    {
+      "captured_at": "2026-11-09T12:00:00Z",
+      "identity_strength": "position_fallback",
+      "position": 2,
+      "product": "Acme Reports",
+      "product_slug": "acme-reports",
+      "review_id": "position-314d4aa3c579",
+      "review_key": "acme-reports:position-314d4aa3c579",
+      "source_url": "https://www.producthunt.com/products/acme-reports/reviews",
+      "status": "new",
+      "tags": [
+        "complaint"
+      ],
+      "text": "The mobile sync is slow and unreliable."
+    },
+    {
+      "captured_at": "2026-11-09T12:00:00Z",
+      "identity_strength": "position_fallback",
+      "position": 1,
+      "product": "Acme Reports",
+      "product_slug": "acme-reports",
+      "review_id": "position-4d350b4edfdb",
+      "review_key": "acme-reports:position-4d350b4edfdb",
+      "source_url": "https://www.producthunt.com/products/acme-reports/reviews",
+      "status": "new",
+      "tags": [
+        "feature_request"
+      ],
+      "text": "I\u2019d like scheduled CSV exports for our weekly client report."
+    },
+    {
+      "captured_at": "2026-11-09T12:02:00Z",
+      "identity_strength": "position_fallback",
+      "position": 1,
+      "product": "Beta Metrics",
+      "product_slug": "beta-metrics",
+      "review_id": "position-6f7fe009a1ad",
+      "review_key": "beta-metrics:position-6f7fe009a1ad",
+      "source_url": "https://www.producthunt.com/products/beta-metrics/reviews",
+      "status": "new",
+      "tags": [
+        "feature_request"
+      ],
+      "text": "Please add exports so I can share results with my team."
+    },
+    {
+      "captured_at": "2026-11-09T12:02:00Z",
+      "identity_strength": "position_fallback",
+      "position": 3,
+      "product": "Beta Metrics",
+      "product_slug": "beta-metrics",
+      "review_id": "position-a20f85257fed",
+      "review_key": "beta-metrics:position-a20f85257fed",
+      "source_url": "https://www.producthunt.com/products/beta-metrics/reviews",
+      "status": "new",
+      "tags": [
+        "switching_mention"
+      ],
+      "text": "I switched from LegacyBI to try the simpler workflow."
+    },
+    {
+      "captured_at": "2026-11-09T12:02:00Z",
+      "identity_strength": "position_fallback",
+      "position": 2,
+      "product": "Beta Metrics",
+      "product_slug": "beta-metrics",
+      "review_id": "position-e7d70b007a60",
+      "review_key": "beta-metrics:position-e7d70b007a60",
+      "source_url": "https://www.producthunt.com/products/beta-metrics/reviews",
+      "status": "new",
+      "tags": [
+        "pricing_objection"
+      ],
+      "text": "The price is too high for a two-person studio."
+    }
+  ],
+  "run_id": "0b91a0770509",
+  "schema_version": 1
+}

@@ -51,6 +51,20 @@ class ProductHuntTests(unittest.TestCase):
             self.assertIn("sample", (Path(tmp) / "report.md").read_text().lower())
             self.assertTrue((Path(tmp) / "run.json").is_file())
 
+    def test_position_fallback_tracks_edited_review(self):
+        base = {"product": "Acme", "product_slug": "acme", "position": 2, "source_url": "https://www.producthunt.com/products/acme/reviews", "captured_at": "2026-11-09"}
+        first = analyze({"rows": [dict(base, text="Please add exports.")]})
+        second = analyze({"rows": [dict(base, text="Please add CSV exports.", captured_at="2026-11-10")]}, first["snapshot"])
+        self.assertEqual(len(second["rows"]), 1)
+        self.assertEqual(second["rows"][0]["status"], "changed")
+        self.assertEqual(second["rows"][0]["identity_strength"], "position_fallback")
+
+    def test_sanitized_live_capture_cues(self):
+        fixture = json.loads((Path(__file__).parent / "fixtures" / "sanitized_live.json").read_text())
+        for row in fixture["rows"]:
+            with self.subTest(row=row["text"]):
+                self.assertEqual(tag_review(row["text"]), row["expected_tags"])
+
 
 if __name__ == "__main__":
     unittest.main()

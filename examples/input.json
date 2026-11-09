@@ -1,0 +1,10 @@
+{
+  "example_type": "synthetic",
+  "rows": [
+    {"product": "Acme Reports", "product_slug": "acme-reports", "position": 1, "text": "I’d like scheduled CSV exports for our weekly client report.", "source_url": "https://www.producthunt.com/products/acme-reports/reviews", "captured_at": "2026-11-09T12:00:00Z"},
+    {"product": "Acme Reports", "product_slug": "acme-reports", "position": 2, "text": "The mobile sync is slow and unreliable.", "source_url": "https://www.producthunt.com/products/acme-reports/reviews", "captured_at": "2026-11-09T12:00:00Z"},
+    {"product": "Beta Metrics", "product_slug": "beta-metrics", "position": 1, "text": "Please add exports so I can share results with my team.", "source_url": "https://www.producthunt.com/products/beta-metrics/reviews", "captured_at": "2026-11-09T12:02:00Z"},
+    {"product": "Beta Metrics", "product_slug": "beta-metrics", "position": 2, "text": "The price is too high for a two-person studio.", "source_url": "https://www.producthunt.com/products/beta-metrics/reviews", "captured_at": "2026-11-09T12:02:00Z"},
+    {"product": "Beta Metrics", "product_slug": "beta-metrics", "position": 3, "text": "I switched from LegacyBI to try the simpler workflow.", "source_url": "https://www.producthunt.com/products/beta-metrics/reviews", "captured_at": "2026-11-09T12:02:00Z"}
+  ]
+}
