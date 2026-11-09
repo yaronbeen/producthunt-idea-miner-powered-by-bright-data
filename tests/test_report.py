@@ -83,6 +83,32 @@ class ProductHuntTests(unittest.TestCase):
                 self.assertEqual(tag_review(row["text"]), row["expected_tags"])
 
 
+    def test_cross_product_evidence_becomes_a_validation_packet(self):
+        rows = [
+            {"product": "Acme", "product_slug": "acme", "review_id": "1", "text": "Please add exports.", "source_url": "https://www.producthunt.com/products/acme/reviews"},
+            {"product": "Beta", "product_slug": "beta", "review_id": "2", "text": "I wish it had exports.", "source_url": "https://www.producthunt.com/products/beta/reviews"},
+        ]
+        result = analyze({"rows": rows})
+        self.assertIn("Please add exports.", result["validation_packets"])
+        self.assertIn("https://www.producthunt.com/products/acme/reviews", result["validation_packets"])
+        self.assertIn("Validation question", result["validation_packets"])
+        single = analyze({"rows": rows[:1]})
+        self.assertIn("No cross-product evidence packets", single["validation_packets"])
+        with tempfile.TemporaryDirectory() as tmp:
+            write_outputs(result, tmp)
+            self.assertTrue((Path(tmp) / "validation-packets.md").is_file())
+
+    def test_bright_data_mcp_installation_is_documented(self):
+        root = Path(__file__).parents[1]
+        readme = (root / "README.md").read_text()
+        guide = (root / "docs" / "install-bright-data-mcp.md").read_text()
+        self.assertNotIn("private repo", readme.lower())
+        self.assertIn("docs/install-bright-data-mcp.md", readme)
+        self.assertIn("@brightdata/mcp", guide)
+        self.assertIn("https://mcp.brightdata.com/mcp?token=", guide)
+        self.assertIn("search_engine,scrape_as_markdown", guide)
+        self.assertIn("{env:BRIGHT_DATA_API_TOKEN}", guide)
+
     def test_shipped_example_output_and_readme_table_are_current(self):
         root = Path(__file__).parents[1]
         result = analyze(json.loads((root / "examples" / "input.json").read_text()))
