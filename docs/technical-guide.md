@@ -2,16 +2,9 @@
 
 ## 1. Connect Bright Data MCP
 
-Create a Bright Data API token in your account. Keep it in your local secret store or environment. Never commit it, paste it into an example, or include it in a report.
+Follow [Install Bright Data MCP](install-bright-data-mcp.md) for the hosted URL, local `npx @brightdata/mcp` configuration, Claude/Cursor setup, OpenCode V2 setup, token handling, and connection checks.
 
-Follow the [official remote MCP quickstart](https://docs.brightdata.com/products/mcp-server/remote/quickstart). The hosted endpoints documented there are:
-
-- SSE: `https://mcp.brightdata.com/sse?token=YOUR_API_TOKEN`
-- Streamable HTTP: `https://mcp.brightdata.com/mcp?token=YOUR_API_TOKEN`
-
-Configure the MCP server under the name `brightdata` in Claude Code or OpenCode. Use the client's secret-safe configuration flow. If the tools are not visible to the agent, stop and fix the connection before collecting data.
-
-Read the [current free-tier terms](https://docs.brightdata.com/general/account/billing-and-pricing/free-tier) for eligibility, resets, included products, and usage accounting. The README's 5,000-credit offer is a starting allowance, not an unlimited-use claim.
+This skill requires `search_engine` and `scrape_as_markdown` under the server name `brightdata`. Keep the token out of examples, reports, Git history, and shared URLs. If the tools are not visible, stop and fix the connection before collecting data. The README's 5,000-credit offer is a shared monthly starting allowance, not an unlimited-use claim.
 
 ## 2. Tools used here
 
@@ -45,6 +38,10 @@ Upsert key: `review_key`
 Columns: `review_key`, `product`, `product_slug`, `text`, `tags`, `status`, `source_url`, `captured_at`.
 
 JSON-valued CSV cells are JSON strings. Cells beginning with spreadsheet formula characters are prefixed with an apostrophe.
+
+### Validation packets
+
+`validation-packets.md` contains at most three cross-product themes, ordered by product and sample counts. It includes exact sanitized excerpts, source URLs, a cue-specific interview question, and a falsifier. Single-product or unclear-only evidence produces an explicit no-packets message. These are interview aids, not demand scores or automatic product recommendations.
 
 ### Snapshot
 

@@ -4,7 +4,7 @@
 
 The initial commit is `test: define expected behavior (red)`. At that point the suite failed because `scripts/report.py` did not exist. The implementation followed. Review regression cases have a separate `test: add review regression cases (red)` commit before their fix commit.
 
-The history also includes documentation and generated examples. Not every later test was individually proven red; the git sequence shows the initial and review rounds rather than claiming a separate commit for every assertion.
+The usability additions have a separate `test: define usability upgrades (red)` commit before their implementation. The history also includes documentation and generated examples. Not every later assertion was individually proven red; the git sequence shows the initial, review, and usability rounds rather than claiming a separate commit for every assertion.
 
 ## Run locally
 
@@ -17,7 +17,7 @@ No API token or network access is needed. The suite uses Python's standard-libra
 
 ## What is covered
 
-multi-label cues, negated praise, live Unicode excerpts, source/text identity, insertion-safe diffs, and cross-product gates. Shared checks also cover CSV formula-injection protection, deterministic output, and generated report/snapshot files.
+multi-label cues, negated praise, live Unicode excerpts, source/text identity, insertion-safe diffs, cross-product gates, and validation evidence packets. Shared checks also cover MCP installation documentation, CSV formula-injection protection, deterministic output, and generated report/snapshot files.
 
 `tests/fixtures/sanitized_live.json` contains a small sanitized observation from the documented MCP smoke check where source evidence was available. Synthetic examples remain clearly labeled and never masquerade as live source data.
 

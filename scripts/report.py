@@ -15,6 +15,12 @@ CUES = {
     "switching_mention": ("switched", "switching", "migrated", "moved from", "alternative to"),
 }
 PUBLIC_FIELDS = {"product", "product_slug", "review_id", "position", "text", "source_url", "captured_at"}
+VALIDATION_QUESTIONS = {
+    "feature_request": "Tell me about the last time you needed this capability. What did you do instead, and what did that workaround cost?",
+    "complaint": "Walk me through the last time this problem happened. What was the impact, and how did you recover?",
+    "pricing_objection": "What do you use today, and what would make a different price or package worth choosing?",
+    "switching_mention": "What triggered your last switch, what nearly stopped it, and what did migration cost?",
+}
 
 
 def csv_cell(value):
@@ -101,6 +107,24 @@ def apply_diff(rows, previous):
     return rows
 
 
+def md(value):
+    return " ".join(str(value if value is not None else "").split()).replace("|", "\\|")
+
+
+def render_validation_packets(themes):
+    eligible = sorted((t for t in themes if t["scope"] == "cross_product"), key=lambda t: (-t["product_count"], -t["sample_count"], t["cue"]))[:3]
+    lines = ["# Product Hunt validation evidence packets | Powered by Bright Data", "", "Use these excerpts to prepare interviews, not to estimate demand. A cue is a research lead, not a product requirement.", ""]
+    if not eligible:
+        lines.append("No cross-product evidence packets. Collect the same cue on at least two deliberately selected products before using this file for theme validation.")
+        return "\n".join(lines) + "\n"
+    for theme in eligible:
+        lines += [f"## {md(theme['cue'])}", "", f"Observed in {theme['sample_count']} excerpts across {theme['product_count']} products in this capture.", "", "### Exact evidence", ""]
+        for evidence in theme["evidence"]:
+            lines.append(f"- `{md(evidence['review_key'])}`: “{md(evidence['text'])}” — {md(evidence.get('source_url') or 'source not captured')}")
+        lines += ["", f"**Validation question:** {VALIDATION_QUESTIONS[theme['cue']]}", "", "**Falsifier:** If target users do not recognize the problem, already solve it cheaply, or will not change their workflow, reject or narrow the theme.", ""]
+    return "\n".join(lines) + "\n"
+
+
 def render(result):
     lines = ["# Product Hunt Idea Miner | Powered by Bright Data", "", f"Captured sample: {len(result['rows'])} visible review excerpts. Counts describe this sample only; they are not demand estimates.", "", "| Cue | Sample count | Products | Evidence scope |", "|---|---:|---:|---|"]
     for theme in result["themes"]:
@@ -114,6 +138,7 @@ def analyze(payload, previous=None):
     run_id = hashlib.sha256(json.dumps(comparison_value(rows), sort_keys=True).encode()).hexdigest()[:12]
     result = {"rows": rows, "themes": build_themes(rows), "snapshot": {"schema_version": 1, "run_id": run_id, "rows": rows}}
     result["report"] = render(result)
+    result["validation_packets"] = render_validation_packets(result["themes"])
     return result
 
 
@@ -122,9 +147,10 @@ def write_outputs(result, output_dir):
     out.mkdir(parents=True, exist_ok=True)
     (out / "report.md").write_text(result["report"])
     (out / "run.json").write_text(json.dumps(result["snapshot"], indent=2, sort_keys=True) + "\n")
+    (out / "validation-packets.md").write_text(result["validation_packets"])
     fields = ["review_key", "product", "product_slug", "text", "tags", "status", "source_url", "captured_at"]
     with (out / "reviews.csv").open("w", newline="") as handle:
-        writer = csv.DictWriter(handle, fieldnames=fields, extrasaction="ignore")
+        writer = csv.DictWriter(handle, fieldnames=fields, extrasaction="ignore", lineterminator="\n")
         writer.writeheader()
         for row in result["rows"]:
             writer.writerow({key: csv_cell(json.dumps(row[key]) if key == "tags" else row.get(key)) for key in fields})

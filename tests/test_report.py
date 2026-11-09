@@ -94,6 +94,8 @@ class ProductHuntTests(unittest.TestCase):
         self.assertIn("Validation question", result["validation_packets"])
         single = analyze({"rows": rows[:1]})
         self.assertIn("No cross-product evidence packets", single["validation_packets"])
+        broad_rows = [dict(row, text="Please add exports. The sync is broken and expensive. I switched from Legacy.") for row in rows]
+        self.assertEqual(analyze({"rows": broad_rows})["validation_packets"].count("\n## "), 3)
         with tempfile.TemporaryDirectory() as tmp:
             write_outputs(result, tmp)
             self.assertTrue((Path(tmp) / "validation-packets.md").is_file())

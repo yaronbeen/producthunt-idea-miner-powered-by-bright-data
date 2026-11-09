@@ -17,7 +17,7 @@ Turn visible Product Hunt review excerpts into a small evidence matrix and **up 
 - No category enumeration claim, auto-pagination, reviewer profiling, outreach, or posting.
 - Keep reviewer allegations as allegations. Remove names, handles, avatars, and profile links.
 - A cue count describes the captured sample only. `unclear` is a valid tag.
-- If Bright Data MCP is unavailable, ask the user to connect it and stop.
+- If Bright Data MCP is unavailable, follow `docs/install-bright-data-mcp.md` or ask the user to connect it; stop until the required tools are visible.
 
 ## Inputs
 
@@ -97,14 +97,14 @@ The helper tags:
 - `switching_mention`
 - `unclear`
 
-Multiple cues are allowed. A `cross_product` cue requires at least two selected products, not two comments on one product.
+Multiple cues are allowed. A `cross_product` cue requires at least two selected products, not two comments on one product. The helper writes up to three `validation-packets.md` entries with exact excerpts, sources, an interview question, and a falsifier.
 
-Write up to three hypotheses only when supported. Each must contain:
+Read those packets and write up to three hypotheses only when their cross-product evidence supports them. Do not promote a single-product signal into a packet or hypothesis. Each hypothesis must contain:
 
 1. Hypothesis in one sentence.
-2. Supporting excerpts and source URLs.
+2. Supporting excerpts and source URLs from the packet.
 3. Disconfirming evidence or missing evidence.
-4. One cheap validation question or interview prompt.
+4. The packet's cheap validation question or a sharper variant.
 
 If evidence is thin, return the evidence gap and no hypotheses.
 
@@ -117,4 +117,4 @@ If evidence is thin, return the evidence gap and no hypotheses.
 
 ## Output limits
 
-No market sizing, demand score, automatic build recommendation, reviewer contact, or publishing. Present `report.md`, `reviews.csv`, and `run.json` paths.
+No market sizing, demand score, automatic build recommendation, reviewer contact, or publishing. Present `report.md`, `reviews.csv`, `validation-packets.md`, and `run.json` paths.

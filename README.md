@@ -18,7 +18,7 @@ You get **up to three** hypotheses when the evidence supports them. If it does n
 
 ## Why Bright Data
 
-Product Hunt research dies in the copy-paste phase. [Bright Data](https://brightdata.com/) MCP lets your agent search and collect public pages as Markdown inside the same workflow that builds the evidence table. A slow or unavailable page becomes an explicit failure, not a silent hole in your analysis. That is the value: a cleaner path from public review to cited decision.
+Product Hunt research dies in the copy-paste phase. [Bright Data](https://docs.brightdata.com/products/mcp-server/overview) MCP lets your agent search and collect public pages as Markdown inside the same workflow that builds the evidence table. A slow or unavailable page becomes an explicit failure, not a silent hole in your analysis. That is the value: a cleaner path from public review to cited decision.
 
 ## Start with 5,000 free credits
 
@@ -31,7 +31,8 @@ The default plan uses **up to 9 search/page requests**, plus at most **3 retries
 - `report.md`: cue counts, evidence scope, and sample caveats.
 - `reviews.csv`: stable `review_key` values, short excerpts, source URLs, and tags.
 - `run.json`: a snapshot for comparing captured review content. Source IDs support edit detection; text fallback cannot distinguish an edit from a new review.
-- Cross-product themes only when at least two selected products contain the same cue.
+- `validation-packets.md`: up to three cross-product evidence packets with exact excerpts, source links, interview questions, and explicit falsifiers.
+- Cross-product themes only when at least two selected products contain the same cue; single-product signals never become packets.
 
 ## Give this to your agent
 
@@ -47,17 +48,24 @@ Do not claim to enumerate a category or load every review. Respect Product Hunt
 terms and stop on access challenges.
 
 Strip reviewer identities. Normalize visible excerpts and run scripts/report.py.
-Return up to three falsifiable idea hypotheses only where evidence supports them.
-Include disconfirming evidence and one validation question per hypothesis.
+Read validation-packets.md and return up to three falsifiable idea hypotheses only
+where its cross-product evidence supports them. Include disconfirming evidence and
+use or refine the validation question in each packet.
 Do not estimate demand or contact reviewers.
 ```
 
 ## Install
 
-Requires Python 3.10+, an agent with Bright Data MCP connected as `brightdata`, and access to this private repo.
+Requires Python 3.10+ and an MCP-compatible agent. This is a public repo.
+
+### 1. Connect Bright Data MCP
+
+Follow [Install Bright Data MCP](docs/install-bright-data-mcp.md). Choose hosted or local setup, then verify `search_engine` and `scrape_as_markdown` are connected as `brightdata`.
+
+### 2. Clone the skill
 
 ```bash
-git clone git@github.com:yaronbeen/producthunt-idea-miner-powered-by-bright-data.git \
+git clone https://github.com/yaronbeen/producthunt-idea-miner-powered-by-bright-data.git \
   ~/.claude/skills/producthunt-idea-miner
 ```
 
@@ -100,7 +108,7 @@ The tests came before the helper. A sanitized live excerpt later exposed a missi
 python3 -m unittest discover -s tests -v
 ```
 
-Coverage includes multi-label cues, Unicode apostrophes, dedupe, identity removal, cross-product gates, CSV injection, deterministic diffs, and sanitized live review excerpts. See [the testing note](docs/testing.md).
+Coverage includes multi-label cues, Unicode apostrophes, dedupe, identity removal, cross-product gates, validation evidence packets, MCP installation docs, CSV injection, deterministic diffs, and sanitized live review excerpts. See [the testing note](docs/testing.md).
 
 ## What this is not
 
