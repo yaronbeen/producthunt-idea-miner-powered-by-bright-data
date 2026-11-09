@@ -50,7 +50,7 @@ JSON-valued CSV cells are JSON strings. Cells beginning with spreadsheet formula
 
 `run.json` contains `schema_version`, a deterministic `run_id`, and normalized rows. The run ID hashes content while excluding `status` and `captured_at`. The same evidence therefore produces the same ID even when only capture timestamps differ.
 
-Statuses are `new`, `changed`, and `unchanged`. A changed search or discovery sample can create new rows; that is not proof of a market trend.
+Statuses are `new`, `changed`, and `unchanged`. Source IDs support edit detection. Without one, normalized text is the identity: inserting reviews does not shift other rows, but an edit appears under a new key and the old key disappears. Only current rows are emitted; vanished rows are not labeled as removed. A changed discovery sample is not a market trend.
 
 ## 4. Security and source limits
 

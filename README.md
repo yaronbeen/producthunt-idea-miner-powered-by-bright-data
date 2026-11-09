@@ -30,7 +30,7 @@ The default plan uses **up to 9 search/page requests**, plus at most **3 retries
 
 - `report.md`: cue counts, evidence scope, and sample caveats.
 - `reviews.csv`: stable `review_key` values, short excerpts, source URLs, and tags.
-- `run.json`: a snapshot for detecting new or edited visible reviews.
+- `run.json`: a snapshot for comparing captured review content. Source IDs support edit detection; text fallback cannot distinguish an edit from a new review.
 - Cross-product themes only when at least two selected products contain the same cue.
 
 ## Give this to your agent
@@ -83,12 +83,14 @@ The example is synthetic. The [live-check note](docs/live-check.md) separates su
 
 | Cue | Sample count | Products | Evidence scope |
 |---|---:|---:|---|
-| feature_request | 4 | 2 | cross_product |
+| complaint | 1 | 1 | single_product_signal |
+| feature_request | 2 | 2 | cross_product |
 | pricing_objection | 1 | 1 | single_product_signal |
+| switching_mention | 1 | 1 | single_product_signal |
 
 **Good next step:** “Ask five target users whether inconsistent exports block their weekly reporting.”
 
-**Bad next step:** “Four mentions prove a million-dollar market.” This skill refuses the second one.
+**Bad next step:** “Two mentions prove a million-dollar market.” This skill refuses the second one.
 
 ## Tests
 
@@ -106,6 +108,7 @@ Coverage includes multi-label cues, Unicode apostrophes, dedupe, identity remova
 - Not a sentiment model. It is a documented cue tagger with visible limits.
 - Not proof of demand, willingness to pay, or product-market fit.
 - Not a reviewer prospecting tool. Identities are removed and never contacted.
+- Not permission to ignore Product Hunt's current terms. Review them before collection.
 
 ## Repo map
 
@@ -121,7 +124,7 @@ docs/                    Setup, schema, testing, and live-check notes
 
 **Why supply product URLs?**  Deliberate inputs beat pretending a topic page enumerated an entire market. One optional search can help discovery; the selected URLs define the sample.
 
-**Why might the weekly diff be quiet?**  Reviews change slowly. Also, the visible-review window can miss new items. The diff describes the same captured sources, not all Product Hunt activity.
+**How does the repeat-run diff work without review IDs?**  The helper hashes normalized review text within the product and source. Inserting a new review does not relabel every later row. However, an edited excerpt gets a new text key and the old key disappears; only stable source IDs support true edit detection. Rows that vanish are not labeled as removed.
 
 **Can it write positioning?**  It gives your agent evidence and validation questions. Any final positioning remains a human decision.
 

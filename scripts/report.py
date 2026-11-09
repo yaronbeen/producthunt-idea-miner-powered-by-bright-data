@@ -14,7 +14,7 @@ CUES = {
     "pricing_objection": ("price", "pricing", "expensive", "too high", "cost"),
     "switching_mention": ("switched", "switching", "migrated", "moved from", "alternative to"),
 }
-PERSONAL = ("author", "founder", "seller", "reviewer", "username", "handle", "email", "phone")
+PUBLIC_FIELDS = {"product", "product_slug", "review_id", "position", "text", "source_url", "captured_at"}
 
 
 def csv_cell(value):
@@ -22,14 +22,27 @@ def csv_cell(value):
     return "'" + text if text.startswith(("=", "+", "-", "@", "\t", "\r")) else text
 
 
+def cue_present(text, phrase):
+    pattern = re.compile(r"(?<![\w-])" + re.escape(phrase) + r"(?![\w-])")
+    for match in pattern.finditer(text):
+        prefix = text[max(0, match.start() - 40):match.start()]
+        if not re.search(r"\b(?:no|not|nothing|never|without)\s+(?:[\w']+\s+){0,1}$", prefix):
+            return True
+    return False
+
+
 def tag_review(text):
     lowered = text.lower().replace("’", "'")
-    tags = [cue for cue, phrases in CUES.items() if any(re.search(r"\b" + re.escape(phrase) + r"\b", lowered) for phrase in phrases)]
+    tags = [cue for cue, phrases in CUES.items() if any(cue_present(lowered, phrase) for phrase in phrases)]
     return tags or ["unclear"]
 
 
 def public_record(record):
-    return {k: v for k, v in record.items() if not any(word in k.lower() for word in PERSONAL)}
+    return {k: v for k, v in record.items() if k in PUBLIC_FIELDS}
+
+
+def normalize_text(text):
+    return " ".join(text.lower().replace("’", "'").split())
 
 
 def normalize_reviews(records):
@@ -43,12 +56,9 @@ def normalize_reviews(records):
         if row.get("review_id"):
             review_id = str(row["review_id"])
             identity_strength = "source_id"
-        elif row.get("position") is not None:
-            basis = f"{row.get('source_url', '')}|{slug}|position:{row['position']}"
-            review_id = "position-" + hashlib.sha256(basis.encode()).hexdigest()[:12]
-            identity_strength = "position_fallback"
         else:
-            review_id = hashlib.sha256((row.get("source_url", "") + text).encode()).hexdigest()[:12]
+            basis = f"{row.get('source_url', '')}|{slug}|{normalize_text(text)}"
+            review_id = "text-" + hashlib.sha256(basis.encode()).hexdigest()[:12]
             identity_strength = "text_fallback"
         row.update({"product_slug": slug, "review_id": review_id, "identity_strength": identity_strength, "review_key": f"{slug}:{review_id}", "text": text, "tags": tag_review(text)})
         deduped[row["review_key"]] = row
@@ -77,7 +87,7 @@ def build_themes(reviews):
 
 def comparison_value(value):
     if isinstance(value, dict):
-        return {k: comparison_value(v) for k, v in value.items() if k not in {"status", "captured_at"}}
+        return {k: comparison_value(v) for k, v in value.items() if k not in {"status", "captured_at", "position"}}
     if isinstance(value, list):
         return [comparison_value(v) for v in value]
     return value

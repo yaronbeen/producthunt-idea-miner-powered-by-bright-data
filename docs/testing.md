@@ -2,9 +2,9 @@
 
 ## Test-first history
 
-The initial commit is `test: define expected behavior (red)`. At that point the test suite failed because `scripts/report.py` did not exist. The implementation followed those tests. Later regression tests were also run before the behavior they define.
+The initial commit is `test: define expected behavior (red)`. At that point the suite failed because `scripts/report.py` did not exist. The implementation followed. Review regression cases have a separate `test: add review regression cases (red)` commit before their fix commit.
 
-The implementation commit includes the green helper, documentation, examples, and CI. Review the git history to inspect the sequence.
+The history also includes documentation and generated examples. Not every later test was individually proven red; the git sequence shows the initial and review rounds rather than claiming a separate commit for every assertion.
 
 ## Run locally
 
@@ -17,7 +17,7 @@ No API token or network access is needed. The suite uses Python's standard-libra
 
 ## What is covered
 
-multi-label cues, live Unicode excerpts, source/position identity, cross-product gates, and review diffs. Shared checks also cover CSV formula-injection protection, deterministic output, and generated report/snapshot files.
+multi-label cues, negated praise, live Unicode excerpts, source/text identity, insertion-safe diffs, and cross-product gates. Shared checks also cover CSV formula-injection protection, deterministic output, and generated report/snapshot files.
 
 `tests/fixtures/sanitized_live.json` contains a small sanitized observation from the documented MCP smoke check where source evidence was available. Synthetic examples remain clearly labeled and never masquerade as live source data.
 

@@ -1,6 +1,6 @@
 review_key,product,product_slug,text,tags,status,source_url,captured_at
-acme-reports:position-314d4aa3c579,Acme Reports,acme-reports,The mobile sync is slow and unreliable.,"[""complaint""]",new,https://www.producthunt.com/products/acme-reports/reviews,2026-11-09T12:00:00Z
-acme-reports:position-4d350b4edfdb,Acme Reports,acme-reports,I’d like scheduled CSV exports for our weekly client report.,"[""feature_request""]",new,https://www.producthunt.com/products/acme-reports/reviews,2026-11-09T12:00:00Z
-beta-metrics:position-6f7fe009a1ad,Beta Metrics,beta-metrics,Please add exports so I can share results with my team.,"[""feature_request""]",new,https://www.producthunt.com/products/beta-metrics/reviews,2026-11-09T12:02:00Z
-beta-metrics:position-a20f85257fed,Beta Metrics,beta-metrics,I switched from LegacyBI to try the simpler workflow.,"[""switching_mention""]",new,https://www.producthunt.com/products/beta-metrics/reviews,2026-11-09T12:02:00Z
-beta-metrics:position-e7d70b007a60,Beta Metrics,beta-metrics,The price is too high for a two-person studio.,"[""pricing_objection""]",new,https://www.producthunt.com/products/beta-metrics/reviews,2026-11-09T12:02:00Z
+acme-reports:text-e26b8204139b,Acme Reports,acme-reports,The mobile sync is slow and unreliable.,"[""complaint""]",new,https://www.producthunt.com/products/acme-reports/reviews,2026-11-09T12:00:00Z
+acme-reports:text-e33632ec99a2,Acme Reports,acme-reports,I’d like scheduled CSV exports for our weekly client report.,"[""feature_request""]",new,https://www.producthunt.com/products/acme-reports/reviews,2026-11-09T12:00:00Z
+beta-metrics:text-080f8639ed4a,Beta Metrics,beta-metrics,Please add exports so I can share results with my team.,"[""feature_request""]",new,https://www.producthunt.com/products/beta-metrics/reviews,2026-11-09T12:02:00Z
+beta-metrics:text-35246f11960d,Beta Metrics,beta-metrics,The price is too high for a two-person studio.,"[""pricing_objection""]",new,https://www.producthunt.com/products/beta-metrics/reviews,2026-11-09T12:02:00Z
+beta-metrics:text-609e8e79dc6b,Beta Metrics,beta-metrics,I switched from LegacyBI to try the simpler workflow.,"[""switching_mention""]",new,https://www.producthunt.com/products/beta-metrics/reviews,2026-11-09T12:02:00Z

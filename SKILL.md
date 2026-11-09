@@ -66,9 +66,9 @@ Create `input.json`:
 ```
 
 - `product_slug`, `text`, `source_url`, and `captured_at` are required.
-- Use a real per-review source ID when visible. Otherwise include the visible `position`; the helper can track edits at that position. Position fallback is weaker and must be disclosed.
+- Use a real per-review source ID when visible. Otherwise the helper uses a normalized-text hash. Text fallback cannot distinguish an edited excerpt from a new review; disclose that limit.
 - Keep excerpts short and relevant. Do not copy the entire page or reviewer identity.
-- Preserve visible sort order in `position`. A changed sort order or window can change the sample.
+- Preserve visible sort order in `position` as context only. It is not an identity key, so inserting a review does not shift every later row's status.
 
 ### 4. Run the helper
 

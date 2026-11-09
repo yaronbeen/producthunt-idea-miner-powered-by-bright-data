@@ -2,12 +2,12 @@
   "rows": [
     {
       "captured_at": "2026-11-09T12:00:00Z",
-      "identity_strength": "position_fallback",
+      "identity_strength": "text_fallback",
       "position": 2,
       "product": "Acme Reports",
       "product_slug": "acme-reports",
-      "review_id": "position-314d4aa3c579",
-      "review_key": "acme-reports:position-314d4aa3c579",
+      "review_id": "text-e26b8204139b",
+      "review_key": "acme-reports:text-e26b8204139b",
       "source_url": "https://www.producthunt.com/products/acme-reports/reviews",
       "status": "new",
       "tags": [
@@ -17,12 +17,12 @@
     },
     {
       "captured_at": "2026-11-09T12:00:00Z",
-      "identity_strength": "position_fallback",
+      "identity_strength": "text_fallback",
       "position": 1,
       "product": "Acme Reports",
       "product_slug": "acme-reports",
-      "review_id": "position-4d350b4edfdb",
-      "review_key": "acme-reports:position-4d350b4edfdb",
+      "review_id": "text-e33632ec99a2",
+      "review_key": "acme-reports:text-e33632ec99a2",
       "source_url": "https://www.producthunt.com/products/acme-reports/reviews",
       "status": "new",
       "tags": [
@@ -32,12 +32,12 @@
     },
     {
       "captured_at": "2026-11-09T12:02:00Z",
-      "identity_strength": "position_fallback",
+      "identity_strength": "text_fallback",
       "position": 1,
       "product": "Beta Metrics",
       "product_slug": "beta-metrics",
-      "review_id": "position-6f7fe009a1ad",
-      "review_key": "beta-metrics:position-6f7fe009a1ad",
+      "review_id": "text-080f8639ed4a",
+      "review_key": "beta-metrics:text-080f8639ed4a",
       "source_url": "https://www.producthunt.com/products/beta-metrics/reviews",
       "status": "new",
       "tags": [
@@ -47,35 +47,35 @@
     },
     {
       "captured_at": "2026-11-09T12:02:00Z",
-      "identity_strength": "position_fallback",
-      "position": 3,
-      "product": "Beta Metrics",
-      "product_slug": "beta-metrics",
-      "review_id": "position-a20f85257fed",
-      "review_key": "beta-metrics:position-a20f85257fed",
-      "source_url": "https://www.producthunt.com/products/beta-metrics/reviews",
-      "status": "new",
-      "tags": [
-        "switching_mention"
-      ],
-      "text": "I switched from LegacyBI to try the simpler workflow."
-    },
-    {
-      "captured_at": "2026-11-09T12:02:00Z",
-      "identity_strength": "position_fallback",
+      "identity_strength": "text_fallback",
       "position": 2,
       "product": "Beta Metrics",
       "product_slug": "beta-metrics",
-      "review_id": "position-e7d70b007a60",
-      "review_key": "beta-metrics:position-e7d70b007a60",
+      "review_id": "text-35246f11960d",
+      "review_key": "beta-metrics:text-35246f11960d",
       "source_url": "https://www.producthunt.com/products/beta-metrics/reviews",
       "status": "new",
       "tags": [
         "pricing_objection"
       ],
       "text": "The price is too high for a two-person studio."
+    },
+    {
+      "captured_at": "2026-11-09T12:02:00Z",
+      "identity_strength": "text_fallback",
+      "position": 3,
+      "product": "Beta Metrics",
+      "product_slug": "beta-metrics",
+      "review_id": "text-609e8e79dc6b",
+      "review_key": "beta-metrics:text-609e8e79dc6b",
+      "source_url": "https://www.producthunt.com/products/beta-metrics/reviews",
+      "status": "new",
+      "tags": [
+        "switching_mention"
+      ],
+      "text": "I switched from LegacyBI to try the simpler workflow."
     }
   ],
-  "run_id": "0b91a0770509",
+  "run_id": "961cb98fb3e1",
   "schema_version": 1
 }
