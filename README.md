@@ -4,6 +4,19 @@
 
 Mine visible Product Hunt review excerpts for recurring complaints, feature requests, pricing objections, and switching mentions. Then turn the strongest evidence into a few falsifiable product hypotheses. Not a demand forecast. A smarter next interview.
 
+## In plain English
+
+**Turn Product Hunt reviews into product ideas you can test in an interview.**
+
+An AI-agent skill. You pick a few Product Hunt products in one space. Your agent uses Bright Data MCP to read their public reviews and finds what users repeatedly complain about, ask for or say about pricing.
+
+| | |
+|---|---|
+| **You give it** | At least one Product Hunt product or review URL (up to eight; two or more products for cross-product themes). |
+| **You get** | `reviews.csv` with short quoted excerpts and links, plus `validation-packets.md`: up to three evidence-backed hypotheses, each with interview questions and a way to prove it wrong. |
+| **Made for** | Product builders and founders looking for what to build or fix next. |
+| **Boundaries** | Not a demand forecast; it says so when the evidence is too thin. |
+
 ## The decision
 
 **Which product gap deserves a cheap validation step?**
