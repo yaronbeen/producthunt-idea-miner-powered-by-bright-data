@@ -74,6 +74,7 @@ class ProductHuntTests(unittest.TestCase):
         self.assertEqual(tag_review("Nothing missing. It is cost-effective."), ["unclear"])
         self.assertEqual(tag_review("No bugs and not confusing."), ["unclear"])
         self.assertIn("pricing_objection", tag_review("The cost is too high."))
+        self.assertEqual(tag_review("Great price and simple pricing."), ["unclear"])
 
     def test_sanitized_live_capture_cues(self):
         fixture = json.loads((Path(__file__).parent / "fixtures" / "sanitized_live.json").read_text())
