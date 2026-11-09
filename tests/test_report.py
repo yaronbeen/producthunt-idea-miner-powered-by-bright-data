@@ -17,13 +17,17 @@ class ProductHuntTests(unittest.TestCase):
 
     def test_dedupe_and_identity_stripping(self):
         rows = [
-            {"product": "Acme", "product_slug": "acme", "review_id": "r1", "text": "Please add exports.", "author": "Person", "source_url": "https://www.producthunt.com/products/acme/reviews", "captured_at": "2026-11-09"},
+            {"product": "Acme", "product_slug": "acme", "review_id": "r1", "text": "Please add exports.", "author": "Person", "owner": "Owner", "profile_url": "https://example.com/person", "user_name": "person", "linkedin": "https://linkedin.com/in/person", "contact": "person@example.com", "source_url": "https://www.producthunt.com/products/acme/reviews", "captured_at": "2026-11-09"},
             {"product": "Acme", "product_slug": "acme", "review_id": "r1", "text": "Duplicate replaced", "author_handle": "person", "source_url": "https://www.producthunt.com/products/acme/reviews", "captured_at": "2026-11-09"},
         ]
         clean = normalize_reviews(rows)
         self.assertEqual(len(clean), 1)
         self.assertEqual(clean[0]["text"], "Duplicate replaced")
         self.assertNotIn("person", json.dumps(clean).lower())
+        self.assertNotIn("owner", json.dumps(clean).lower())
+        self.assertNotIn("profile_url", json.dumps(clean).lower())
+        self.assertNotIn("linkedin", json.dumps(clean).lower())
+        self.assertNotIn("contact", json.dumps(clean).lower())
 
     def test_cross_product_theme_requires_two_products(self):
         reviews = normalize_reviews([
@@ -51,19 +55,41 @@ class ProductHuntTests(unittest.TestCase):
             self.assertIn("sample", (Path(tmp) / "report.md").read_text().lower())
             self.assertTrue((Path(tmp) / "run.json").is_file())
 
-    def test_position_fallback_tracks_edited_review(self):
-        base = {"product": "Acme", "product_slug": "acme", "position": 2, "source_url": "https://www.producthunt.com/products/acme/reviews", "captured_at": "2026-11-09"}
-        first = analyze({"rows": [dict(base, text="Please add exports.")]})
-        second = analyze({"rows": [dict(base, text="Please add CSV exports.", captured_at="2026-11-10")]}, first["snapshot"])
-        self.assertEqual(len(second["rows"]), 1)
-        self.assertEqual(second["rows"][0]["status"], "changed")
-        self.assertEqual(second["rows"][0]["identity_strength"], "position_fallback")
+    def test_text_fallback_does_not_shift_when_a_review_is_inserted(self):
+        first_rows = [
+            {"product": "Acme", "product_slug": "acme", "position": 1, "text": "Please add exports.", "source_url": "https://www.producthunt.com/products/acme/reviews", "captured_at": "2026-11-09"},
+            {"product": "Acme", "product_slug": "acme", "position": 2, "text": "The sync is broken.", "source_url": "https://www.producthunt.com/products/acme/reviews", "captured_at": "2026-11-09"},
+        ]
+        first = analyze({"rows": first_rows})
+        inserted = {"product": "Acme", "product_slug": "acme", "position": 1, "text": "I wish it had an API.", "source_url": "https://www.producthunt.com/products/acme/reviews", "captured_at": "2026-11-10"}
+        shifted = [dict(first_rows[0], position=2, captured_at="2026-11-10"), dict(first_rows[1], position=3, captured_at="2026-11-10")]
+        second = analyze({"rows": [inserted] + shifted}, first["snapshot"])
+        by_text = {row["text"]: row for row in second["rows"]}
+        self.assertEqual(by_text["Please add exports."]["status"], "unchanged")
+        self.assertEqual(by_text["The sync is broken."]["status"], "unchanged")
+        self.assertEqual(by_text["I wish it had an API."]["status"], "new")
+        self.assertTrue(all(row["identity_strength"] == "text_fallback" for row in second["rows"]))
+
+    def test_negated_praise_does_not_become_an_objection(self):
+        self.assertEqual(tag_review("Nothing missing. It is cost-effective."), ["unclear"])
+        self.assertEqual(tag_review("No bugs and not confusing."), ["unclear"])
+        self.assertIn("pricing_objection", tag_review("The cost is too high."))
 
     def test_sanitized_live_capture_cues(self):
         fixture = json.loads((Path(__file__).parent / "fixtures" / "sanitized_live.json").read_text())
         for row in fixture["rows"]:
             with self.subTest(row=row["text"]):
                 self.assertEqual(tag_review(row["text"]), row["expected_tags"])
+
+
+    def test_shipped_example_output_and_readme_table_are_current(self):
+        root = Path(__file__).parents[1]
+        result = analyze(json.loads((root / "examples" / "input.json").read_text()))
+        self.assertEqual(result["report"], (root / "examples" / "output" / "report.md").read_text())
+        readme = (root / "README.md").read_text()
+        for line in result["report"].splitlines():
+            if line.startswith("|"):
+                self.assertIn(line, readme)
 
 
 if __name__ == "__main__":
